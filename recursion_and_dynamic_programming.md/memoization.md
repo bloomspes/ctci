@@ -8,7 +8,7 @@
 
 - Naive Algorithm
 
-```{.python}
+```{.python3}
 def fibonacci(i):
 
     if (i == 0):
@@ -33,10 +33,10 @@ def fibonacci(i):
 위의 알고리즘은 불필요한 함수 호출이 반복되므로
 더이상의 함수 호출이 없이 다음과 같은 방향으로 해결 할 수 있다.
 
-1. best case인 fibonacci(0)과 fibonacci(1)을 계산한다. <br>
-2. 재귀 알고리즘을 사용해서 fibonacci(i)을 구하는데, fibonacci 함수 안에 loop를 걸어서 문제를 해결 하는 것도 하나의 방법이다.
+1. `best case`인 fibonacci(0)과 fibonacci(1)을 계산한다. <br>
+2. `재귀 알고리즘`을 사용해서 fibonacci(i)을 구하는데, fibonacci 함수 안에 loop를 걸어서 문제를 해결 하는 것도 하나의 방법이다.
 
-```{.python}
+```{.python3}
 def fibonacci(n):
     a, b = 1, 1
     if (n == 0):
@@ -47,4 +47,23 @@ def fibonacci(n):
         a, b = b, a+b
 
     return a
+```
+
+## top-down approach in dynamic programming
+
+일반적으로, 동적 프로그래밍 기법을 사용한다고 했을 때 이 기법으로 접근을 한다.
+하향식 동적 프로그래밍의 큰 특징은 `중복되는 노드`를 구하는 것에서 출발한다.
+
+1. 중복되는 연산을 먼저 구하고,
+2. 메모이제이션을 사용해서 값을 리턴한다.
+
+```{.python3}
+dict = {0:0, 1:1}
+
+def fibonacci(n):
+    if n in dict:
+        return dict[n]
+
+    dict[n] = fibonacci(n-1) + fibonacci(n-2)
+    return dict[n]
 ```
