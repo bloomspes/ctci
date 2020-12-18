@@ -61,7 +61,7 @@ def fibonacci(n):
 memo = []
 
 def fibonacci(n):
-    if n >= 2 and len(dict) <= n:
+    if n >= 2 and len(memo) <= n:
         memo.append(fibonacci(n-1) + fibonacci(n-2))
     return memo[n]
 ```
