@@ -7,42 +7,18 @@
 # dp[r][c] = dp[r][c-1] + dp[r-1][c]
 # O(rc)
 
-import sys
+def find_a_route(n):
+    route = 0
+    dp = [[0 for _ in range(r+1)] for _ in range(c+1)]
 
-# mp == 중간 지점
+    for i in range(0, n):
+        for j in range(0, n):
+            route = max(dp[i][j-1], dp[i-1][j])
 
-r, c, mp = [int(x) for x in sys.stdin.readline().split()]
+            if dp[i][j] == 0:
+                dp[i][j] == route
 
+            else:
+                dp[i][j] = route + 1
 
-def find_a_route(y, x):
-
-    dp = [[0 for k in range(x+1)] for k in range(y+1)]
-
-    for i in range(1, y+1):
-        for j in range(1, x+1):
-            if i == 1 and j == 1:
-                dp[i][j] = 1
-                continue
-
-            dp[i][j] = dp[i-1][j] + dp[i][j-1]
-
-    return dp[y][x]
-
-
-# 중간 지점 없는 경우는 r, c 까지의 경우의 수 구하면 된다.
-if mp == 0:
-    print(find_a_route(r, c))
-
-# 중간 지점 있는 경우 => 중간 지점의 인접한 좌표를 점화식으로 두고 (1, 1) 부터 중간지점의 dp들을 더하면 구하는 값이 나온다.
-else:
-    mpR1 = (mp - 1) // c + 1
-    mpC1 = mp - (mpR1 - 1) * c
-    mpR2 = r - (mpR1 - 1)
-    mpC2 = c - (mpC1 - 1)
-
-    # 오른쪽 아래 경로
-    right_down = find_a_route(mpR1, mpC1)
-    # 왼쪽 위 경로
-    left_up = find_a_route(mpR2, mpC2)
-
-    print(right_down + left_up)
+            return dp[c][r]
